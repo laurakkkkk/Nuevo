@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pico y Placa Solidario Bogotá 2026</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0a0e1a;
+    color: #e8ecf4;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background:
+      radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.25), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.2), transparent 55%),
+      linear-gradient(135deg, #0a0e1a 0%, #131a2e 100%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(99, 102, 241, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #a5b4fc;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #f0abfc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: #94a3b8;
+    max-width: 650px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+    border: none;
+    cursor: pointer;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 50px rgba(99, 102, 241, 0.6);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .section-subtitle {
+    color: #94a3b8;
+    font-size: 1.05rem;
+    margin-bottom: 3rem;
+    max-width: 700px;
+  }
+
+  .accent-line {
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #6366f1, #ec4899);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.35s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1, #ec4899);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  .card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: #c7d2fe;
+    font-weight: 600;
+  }
+
+  .card p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+  }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .price-card {
+    background: linear-gradient(160deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.35s ease;
+    position: relative;
+  }
+
+  .price-card.featured {
+    border-color: rgba(139, 92, 246, 0.6);
+    background: linear-gradient(160deg, rgba(99, 102, 241, 0.15), rgba(15, 23, 42, 0.9));
+    box-shadow: 0 0 60px rgba(99, 102, 241, 0.25);
+  }
+
+  .price-card.featured::after {
+    content: 'MÁS POPULAR';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    color: white;
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .price-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(139, 92, 246, 0.5);
+  }
+
+  .price-label {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .price-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+  }
+
+  .price-value small {
+    font-size: 0.9rem;
+    color: #a5b4fc;
+    font-weight: 500;
+  }
+
+  .price-desc {
+    color: #64748b;
+    font-size: 0.85rem;
+  }
+
+  /* STEPS */
+  .steps {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    counter-reset: step;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    background: rgba(30, 41, 59, 0.3);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem 1.8rem;
+    transition: all 0.3s ease;
+  }
+
+  .step:hover {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateX(6px);
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: white;
+  }
+
+  .step-content h4 {
+    color: #e0e7ff;
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+
+  .step-content p {
+    color: #94a3b8;
+    font-size: 0.92rem;
+  }
+
+  /* ALERT */
+  .alert {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1));
+    border: 1px solid rgba(236, 72, 153, 0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+
+  .alert h3 {
+    color: #f9a8d4;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .alert ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .alert li {
+    color: #cbd5e1;
+    padding: 0.5rem 0 0.5rem 1.8rem;
+    position: relative;
+    font-size: 0.95rem;
+  }
+
+  .alert li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    border-top: 1px solid rgba(99, 102, 241, 0.15);
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  footer a {
+    color: #a5b4fc;
+    text-decoration: none;
+  }
+
+  /* COOKIE MODAL */
+  .cookie-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .cookie-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .cookie-modal {
+    background: linear-gradient(160deg, #1e293b, #0f172a);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 24px;
+    padding: 2.5rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cookie-overlay.active .cookie-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .cookie-modal h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .cookie-modal p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .cookie-accept {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .cookie-accept:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.5);
+  }
+
+  .cookie-accept:active {
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    section {
+      padding: 3.5rem 1.2rem;
+    }
+
+    .card, .price-card, .step {
+      padding: 1.5rem;
+    }
+
+    .cookie-modal {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="badge">Actualizado 2026</div>
+    <h1>Pico y Placa Solidario Bogotá</h1>
+    <p>Circula sin restricciones, contribuye al transporte público y mantén tu movilidad sin complicaciones. Conoce tarifas, requisitos y cómo obtener tu permiso.</p>
+    <a href="#tarifas" class="cta-button">Ver Tarifas 2026</a>
+  </div>
+</div>
+
+<!-- QUÉ ES -->
+<section>
+  <div class="accent-line"></div>
+  <h2 class="section-title">¿Qué es el Pico y Placa Solidario?</h2>
+  <p class="section-subtitle">Un permiso especial creado mediante el Decreto 749 de 2019 que permite a vehículos particulares circular durante los días de restricción, generando recursos para el transporte público.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Desincentiva la compra de vehículos</h3>
+      <p>Busca que los hogares no adquieran un segundo automóvil para evadir la restricción de pico y placa.</p>
+    </div>
+    <div class="card">
+      <h3>Financia el transporte público</h3>
+      <p>Los recursos recaudados se destinan al Fondo de Estabilización Tarifaria que subsidia el SITP y TransMilenio.</p>
+    </div>
+    <div class="card">
+      <h3>Permiso voluntario y temporal</h3>
+      <p>Es una alternativa opcional al sistema tradicional, con duración de un día, un mes o seis meses.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFAS -->
+<section id="tarifas">
+  <div class="accent-line"></div>
+  <h2 class="section-title">Tarifas Actualizadas 2026</h2>
+  <p class="section-subtitle">Valores base según la Resolución 120963 de 2026, ajustados con base en el Índice de Precios al Consumidor (IPC).</p>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">Permiso Diario</div>
+      <div class="price-value">$70.294</div>
+      <div class="price-desc">Válido por un día de circulación</div>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">Permiso Mensual</div>
+      <div class="price-value">$561.808</div>
+      <div class="price-desc">Válido por un mes calendario</div>
+    </div>
+    <div class="price-card">
+      <div class="price-label">Permiso Semestral</div>
+      <div class="price-value">$2.809.311</div>
+      <div class="price-desc">Válido por seis meses</div>
+    </div>
+  </div>
+
+  <div class="alert" style="margin-top: 2rem;">
+    <h3>Cambio importante para 2026</h3>
+    <p style="color: #cbd5e1;">El factor multiplicador para vehículos matriculados fuera de Bogotá pasó de 1,2 a 1,5, representando un incremento del 25% en el costo para estos vehículos.</p>
+  </div>
+</section>
+
+<!-- CÁLCULO -->
+<section>
+  <div class="accent-line"></div>
+  <h2 class="section-title">¿Cómo se calcula el valor final?</h2>
+  <p class="section-subtitle">El valor del permiso no es fijo, depende de varios factores multiplicadores que determinan la tarifa final.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Avalúo del vehículo</h3>
+      <p>A mayor valor comercial del automóvil, mayor será el costo del permiso.</p>
+    </div>
+    <div class="card">
+      <h3>Modelo y antigüedad</h3>
+      <p>La edad del vehículo influye directamente en la tarifa a pagar.</p>
+    </div>
+    <div class="card">
+      <h3>Tipo de combustible</h3>
+      <p>Gasolina, diésel o híbrido: cada categoría tiene su propio factor.</p>
+    </div>
+    <div class="card">
+      <h3>Municipio de matrícula</h3>
+      <p>Vehículos matriculados fuera de Bogotá pagan un factor mayor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REQUISITOS -->
+<section>
+  <div class="accent-line"></div>
+  <h2 class="section-title">Requisitos para solicitar el permiso</h2>
+  <p class="section-subtitle">Antes de iniciar el trámite, verifica que tu vehículo cumpla con todas las condiciones.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>SOAT vigente</h3>
+      <p>El seguro obligatorio debe estar al día y sin suspensiones.</p>
+    </div>
+    <div class="card">
+      <h3>Revisión técnico-mecánica</h3>
+      <p>Debe estar vigente, incluyendo la revisión de emisiones contaminantes.</p>
+    </div>
+    <div class="card">
+      <h3>Sin multas pendientes</h3>
+      <p>No debe tener multas de tránsito ejecutoriadas sin pagar.</p>
+    </div>
+    <div class="card">
+      <h3>Ser propietario registrado</h3>
+      <p>El solicitante debe figurar como dueño del vehículo en el RUNT.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PASOS -->
+<section>
+  <div class="accent-line"></div>
+  <h2 class="section-title">Paso a paso para obtenerlo</h2>
+  <p class="section-subtitle">Sigue estas instrucciones para realizar tu trámite de manera segura y exitosa.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h4>Ingresa al portal oficial</h4>
+        <p>Accede únicamente a picoyplacasolidario.movilidadbogota.gov.co</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h4>Usa el simulador de tarifa</h4>
+        <p>Antes de registrarte, calcula el valor según las características de tu vehículo.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h4>Completa el registro</h4>
+        <p>Selecciona Persona Natural o Jurídica y llena el formulario con tus datos.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h4>Realiza el pago</h4>
+        <p>A través de PSE en la plataforma oficial de la Secretaría de Movilidad.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <h4>Completa el módulo de sensibilización</h4>
+        <p>Curso obligatorio sobre movilidad, medio ambiente y seguridad vial (una vez al año).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <h4>Recibe tu confirmación</h4>
+        <p>Obtendrás las fechas de vigencia de tu permiso de circulación.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVERTENCIAS -->
+<section>
+  <div class="accent-line"></div>
+  <h2 class="section-title">Advertencias importantes</h2>
+  <p class="section-subtitle">Protege tu trámite y evita fraudes siguiendo estas recomendaciones oficiales.</p>
+
+  <div class="alert">
+    <h3>Evita fraudes</h3>
+    <ul>
+      <li>El sitio oficial siempre termina en .gov.co</li>
+      <li>El trámite es personal y no requiere intermediarios</li>
+      <li>No se puede obtener por WhatsApp, redes sociales o teléfono</li>
+      <li>Desconfía de quien prometa "agilizar" el proceso</li>
+    </ul>
+  </div>
+
+  <div class="alert" style="margin-top: 1.5rem;">
+    <h3>Sanciones por incumplimiento</h3>
+    <ul>
+      <li>Multa de $633.232 pesos</li>
+      <li>Inmovilización del vehículo</li>
+      <li>Costos adicionales por grúa y patios</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTEXTO -->
+<section>
+  <div class="accent-line"></div>
+  <h2 class="section-title">Contexto y debate actual</h2>
+  <p class="section-subtitle">El Pico y Placa Solidario ha generado debate en Bogotá sobre su efectividad y propósito real.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Crecimiento sostenido</h3>
+      <p>Solo en diciembre de 2025 se registraron 446.853 permisos diarios adquiridos.</p>
+    </div>
+    <div class="card">
+      <h3>Proyección 2026</h3>
+      <p>Se estima un recaudo de aproximadamente 597.827 millones de pesos.</p>
+    </div>
+    <div class="card">
+      <h3>Destino de los recursos</h3>
+      <p>Cerca del 18% del total del Fondo de Estabilización Tarifaria proviene de este programa.</p>
+    </div>
+    <div class="card">
+      <h3>Objetivo oficial</h3>
+      <p>No busca reducir directamente la congestión, sino desincentivar la compra de vehículos adicionales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Información basada en la Resolución 120963 de 2026 y comunicados oficiales de la Secretaría Distrital de Movilidad de Bogotá.</p>
+  <p style="margin-top: 0.5rem;">Realiza siempre tu trámite en <a href="https://picoyplacasolidario.movilidadbogota.gov.co" target="_blank" rel="noopener">picoyplacasolidario.movilidadbogota.gov.co</a></p>
+</footer>
+
+<!-- COOKIE MODAL -->
+<div class="cookie-overlay" id="cookieOverlay">
+  <div class="cookie-modal">
+    <h3>Uso de cookies</h3>
+    <p>Este sitio utiliza cookies para mejorar tu experiencia de navegación y analizar el tráfico. Al continuar, aceptas su uso.</p>
+    <button class="cookie-accept" id="cookieAccept">Aceptar</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const overlay = document.getElementById('cookieOverlay');
+    const acceptBtn = document.getElementById('cookieAccept');
+    const STORAGE_KEY = 'cookie_accepted_pico_placa';
+
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      setTimeout(() => {
+        overlay.classList.add('active');
+      }, 800);
+    }
+
+    acceptBtn.addEventListener('click', () => {
+      localStorage.setItem(STORAGE_KEY, 'true');
+      overlay.classList.remove('active');
+    });
+  })();
+</script>
+
+</body>
+  </html>
